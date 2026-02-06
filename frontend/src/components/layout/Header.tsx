@@ -36,7 +36,11 @@ const Header: React.FC = () => {
   return (
     <header className="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-40 flex items-center justify-between px-5 shadow-sm">
       {/* Left: Logo — offset to sit inside sidebar area */}
-      <div className="flex items-center gap-2.5" style={{ width: '15rem' }}>
+      <button
+        onClick={() => navigate('/')}
+        className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity"
+        style={{ width: '15rem' }}
+      >
         <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
           <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -45,7 +49,7 @@ const Header: React.FC = () => {
         <span className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">
           ServerEye
         </span>
-      </div>
+      </button>
 
       {/* Right: Dark mode + Alert bell + User menu */}
       <div className="flex items-center gap-1">
