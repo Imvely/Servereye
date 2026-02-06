@@ -113,14 +113,14 @@ export default function ServerDetail() {
       setLoadingExtra(true);
       try {
         if (tab === 'process') {
-          const { data } = await apiClient.get<ProcessInfo[]>(`/servers/${serverId}/processes`);
-          setProcesses(data);
+          const { data } = await apiClient.get<{ processes: ProcessInfo[] }>(`/servers/${serverId}/processes`);
+          setProcesses(data.processes);
         } else if (tab === 'service') {
-          const { data } = await apiClient.get<ServiceInfo[]>(`/servers/${serverId}/services`);
-          setServices(data);
+          const { data } = await apiClient.get<{ services: ServiceInfo[] }>(`/servers/${serverId}/services`);
+          setServices(data.services);
         } else if (tab === 'log') {
           const { data } = await apiClient.get<ServerLogEntry[]>(`/servers/${serverId}/logs`, {
-            params: { size: 100 },
+            params: { limit: 200 },
           });
           setLogs(data);
         }

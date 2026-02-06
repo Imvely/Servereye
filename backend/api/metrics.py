@@ -1,9 +1,9 @@
-"""메트릭 및 프로세스/서비스 API 라우터"""
+"""메트릭 및 프로세스/서비스/로그 API 라우터"""
 import json
 from fastapi import APIRouter, HTTPException, Query
 from sqlalchemy import text
 from backend.db.database import async_session
-from backend.db.schemas import MetricLatest
+from backend.db.schemas import MetricLatest, ServerLogEntry
 
 router = APIRouter(prefix="/api/v1/servers", tags=["metrics"])
 
@@ -257,3 +257,66 @@ async def get_services(
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"서비스 목록 조회 실패: {str(e)}")
+
+
+@router.get("/{server_id}/logs", response_model=list[ServerLogEntry])
+async def get_logs(
+    server_id: int,
+    level: str = Query(None, description="error|warning|info|debug"),
+    date_from: str = Query(None, alias="from"),
+    date_to: str = Query(None, alias="to"),
+    limit: int = Query(200, ge=1, le=1000)
+):
+    """서버 로그 조회"""
+    try:
+        async with async_session() as session:
+            srv = await session.execute(
+                text("SELECT server_id FROM servers WHERE server_id=:sid AND is_active=1"),
+                {"sid": server_id}
+            )
+            if not srv.fetchone():
+                raise HTTPException(status_code=404, detail="서버를 찾을 수 없습니다")
+
+            conditions = ["server_id=:sid"]
+            params: dict = {"sid": server_id, "lim": limit}
+
+            if level:
+                conditions.append("log_level=:level")
+                params["level"] = level
+            if date_from:
+                conditions.append("occurred_at >= :df")
+                params["df"] = date_from
+            if date_to:
+                conditions.append("occurred_at <= :dt")
+                params["dt"] = date_to
+
+            where = " AND ".join(conditions)
+
+            result = await session.execute(
+                text(f"""SELECT id, server_id, log_source, log_level,
+                    message, event_id, occurred_at
+                    FROM server_logs
+                    WHERE {where}
+                    ORDER BY occurred_at DESC
+                    LIMIT :lim"""),
+                params
+            )
+            rows = result.fetchall()
+
+        logs = []
+        for r in rows:
+            logs.append(ServerLogEntry(
+                id=r[0],
+                server_id=r[1],
+                log_source=r[2] or '',
+                log_level=r[3] or '',
+                message=r[4] or '',
+                event_id=r[5],
+                occurred_at=r[6]
+            ))
+
+        return logs
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"로그 조회 실패: {str(e)}")

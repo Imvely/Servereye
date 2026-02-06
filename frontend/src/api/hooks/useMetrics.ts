@@ -27,6 +27,37 @@ export interface MetricHistoryParams {
   metric?: string;
 }
 
+function rangeToApiParams(range?: string): { from: string; interval: string } {
+  const now = new Date();
+  let hoursBack = 1;
+  let interval = 'raw';
+
+  switch (range) {
+    case '6h':
+      hoursBack = 6;
+      interval = '5min';
+      break;
+    case '24h':
+      hoursBack = 24;
+      interval = '5min';
+      break;
+    case '7d':
+      hoursBack = 168;
+      interval = 'hourly';
+      break;
+    case '30d':
+      hoursBack = 720;
+      interval = 'hourly';
+      break;
+    default:
+      hoursBack = 1;
+      interval = 'raw';
+  }
+
+  const from = new Date(now.getTime() - hoursBack * 3600 * 1000).toISOString();
+  return { from, interval };
+}
+
 export function useMetricHistory(
   serverId: number | undefined,
   params?: MetricHistoryParams,
@@ -34,11 +65,19 @@ export function useMetricHistory(
   return useQuery<MetricHistory[]>({
     queryKey: ['metrics', 'history', serverId, params],
     queryFn: async () => {
-      const { data } = await apiClient.get<MetricHistory[]>(
+      const { from: rangeFrom, interval } = rangeToApiParams(params?.range);
+
+      const apiParams: Record<string, string> = {
+        from: params?.from || rangeFrom,
+        interval,
+      };
+      if (params?.to) apiParams.to = params.to;
+
+      const { data } = await apiClient.get<{ data: MetricHistory[] }>(
         `/servers/${serverId}/metrics/history`,
-        { params },
+        { params: apiParams },
       );
-      return data;
+      return data.data;
     },
     enabled: !!serverId,
   });

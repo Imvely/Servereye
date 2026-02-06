@@ -168,6 +168,17 @@ class MetricLatest(BaseModel):
     uptime_seconds: Optional[int] = None
 
 
+# ── 로그 ──
+class ServerLogEntry(BaseModel):
+    id: int
+    server_id: int
+    log_source: str = ''
+    log_level: str = ''
+    message: str = ''
+    event_id: Optional[int] = None
+    occurred_at: str
+
+
 # ── 알림 ──
 class ActiveAlert(BaseModel):
     alert_id: int
