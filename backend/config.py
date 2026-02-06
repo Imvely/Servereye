@@ -45,4 +45,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 480  # 8시간
 ENCRYPTION_KEY_FILE = DATA_DIR / '.encryption_key'
 
 # 프론트엔드 정적 파일 경로
-FRONTEND_DIR = APP_DIR / 'frontend' / 'dist'
+if getattr(sys, 'frozen', False):
+    FRONTEND_DIR = APP_DIR / 'web'
+else:
+    FRONTEND_DIR = APP_DIR / 'frontend' / 'dist'
