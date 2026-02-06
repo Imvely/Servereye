@@ -98,7 +98,7 @@ export default function Settings() {
     }
     setWebhookTestLoading(true);
     try {
-      const { data } = await apiClient.post('/settings/webhook-test', { url: webhookUrl });
+      const { data } = await apiClient.post('/settings/webhook/test', { webhook_type: 'slack', url: webhookUrl });
       if (data.success) {
         toast.success('Webhook 테스트 성공!');
       } else {

@@ -8,8 +8,8 @@ export function useReports() {
   return useQuery<ReportHistory[]>({
     queryKey: ['reports'],
     queryFn: async () => {
-      const { data } = await apiClient.get<ReportHistory[]>('/reports');
-      return data;
+      const { data } = await apiClient.get<{ items: ReportHistory[] }>('/reports');
+      return data.items;
     },
   });
 }

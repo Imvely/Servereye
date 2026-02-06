@@ -42,7 +42,8 @@ async def create_report(request: GenerateReportRequest):
             date_from=request.date_from,
             date_to=request.date_to,
             server_ids=request.server_ids,
-            report_type=request.report_type
+            report_type=request.report_type,
+            report_name=request.report_name
         )
 
         return {

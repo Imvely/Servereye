@@ -26,6 +26,7 @@ THIN_BORDER = Border(
 async def generate_report(date_from: str, date_to: str,
                           server_ids: Optional[list[int]] = None,
                           report_type: str = 'summary',
+                          report_name: Optional[str] = None,
                           created_by: str = 'system') -> dict:
     """리포트 생성"""
     wb = Workbook()
@@ -48,7 +49,7 @@ async def generate_report(date_from: str, date_to: str,
 
     # 파일 저장
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    filename = f"ServerEye_Report_{timestamp}.xlsx"
+    filename = f"{report_name or 'ServerEye_Report'}_{timestamp}.xlsx"
     filepath = os.path.join(REPORTS_DIR, filename)
     wb.save(filepath)
 

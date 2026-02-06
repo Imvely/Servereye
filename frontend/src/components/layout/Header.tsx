@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Bell, ChevronDown, LogOut, User } from 'lucide-react';
+import { Bell, ChevronDown, LogOut, User, Moon, Sun } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../stores/authStore';
+import { useSettingsStore } from '../../stores/settingsStore';
 import { useActiveAlerts } from '../../api/hooks/useAlerts';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuthStore();
+  const { darkMode, toggleDarkMode } = useSettingsStore();
   const { data: activeAlerts } = useActiveAlerts();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -33,14 +35,23 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-14 bg-white border-b border-gray-200 z-40 flex items-center justify-between px-4">
+    <header className="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-40 flex items-center justify-between px-4">
       {/* Left: Logo */}
       <div className="flex items-center gap-2">
-        <span className="text-lg font-bold text-gray-900">ServerEye</span>
+        <span className="text-lg font-bold text-gray-900 dark:text-white">ServerEye</span>
       </div>
 
-      {/* Right: Alert bell + User menu */}
+      {/* Right: Dark mode + Alert bell + User menu */}
       <div className="flex items-center gap-2">
+        {/* Dark mode toggle */}
+        <button
+          onClick={toggleDarkMode}
+          className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          title={darkMode ? '라이트 모드' : '다크 모드'}
+        >
+          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+
         {/* Alert bell */}
         <button
           onClick={() => navigate('/alerts')}

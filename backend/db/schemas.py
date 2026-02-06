@@ -251,6 +251,7 @@ class GenerateReportRequest(BaseModel):
     date_to: str
     server_ids: Optional[list[int]] = None
     report_type: str = 'summary'
+    report_name: Optional[str] = None
 
 
 # ── 설정 ──

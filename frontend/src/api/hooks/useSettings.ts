@@ -8,10 +8,10 @@ export function useSettings(category?: string) {
   return useQuery<AppSetting[]>({
     queryKey: ['settings', category],
     queryFn: async () => {
-      const { data } = await apiClient.get<AppSetting[]>('/settings', {
+      const { data } = await apiClient.get<{ settings: AppSetting[] }>('/settings', {
         params: category ? { category } : undefined,
       });
-      return data;
+      return data.settings;
     },
   });
 }
@@ -27,7 +27,12 @@ export function useUpdateSettings() {
 
   return useMutation({
     mutationFn: async (body: UpdateSettingsRequest) => {
-      const { data } = await apiClient.put('/settings', body);
+      // Backend expects { settings: { key: value, ... } } dict format
+      const settingsDict: Record<string, string> = {};
+      body.settings.forEach((s) => {
+        settingsDict[s.key] = s.value;
+      });
+      const { data } = await apiClient.put('/settings', { settings: settingsDict });
       return data;
     },
     onSuccess: () => {
