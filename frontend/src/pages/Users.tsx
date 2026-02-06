@@ -139,8 +139,8 @@ export default function Users() {
     <div className="space-y-6">
       {/* ── Header ── */}
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <UsersIcon size={22} className="text-indigo-600" />
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <UsersIcon size={22} className="text-indigo-600 dark:text-indigo-400" />
           사용자 관리
         </h1>
         <Button variant="primary" icon={<Plus size={16} />} onClick={() => setCreateOpen(true)}>
@@ -149,7 +149,7 @@ export default function Users() {
       </div>
 
       {/* ── User Table ── */}
-      <div className="overflow-x-auto bg-white border border-gray-200 rounded-xl">
+      <div className="overflow-x-auto bg-white border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 size={24} className="animate-spin text-gray-400" />
@@ -159,14 +159,14 @@ export default function Users() {
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100 text-left">
-                <th className="px-4 py-3 font-medium text-gray-500">아이디</th>
-                <th className="px-4 py-3 font-medium text-gray-500">이름</th>
-                <th className="px-4 py-3 font-medium text-gray-500">역할</th>
-                <th className="px-4 py-3 font-medium text-gray-500">상태</th>
-                <th className="px-4 py-3 font-medium text-gray-500">마지막 로그인</th>
-                <th className="px-4 py-3 font-medium text-gray-500">생성일</th>
-                <th className="px-4 py-3 font-medium text-gray-500 text-right">작업</th>
+              <tr className="border-b border-gray-100 text-left dark:border-gray-700">
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">아이디</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">이름</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">역할</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">상태</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">마지막 로그인</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">생성일</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 text-right">작업</th>
               </tr>
             </thead>
             <tbody>
@@ -175,22 +175,22 @@ export default function Users() {
                 return (
                   <tr
                     key={user.user_id}
-                    className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
+                    className="border-b border-gray-50 hover:bg-gray-50 transition-colors dark:border-gray-700 dark:hover:bg-gray-700/50"
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold">
+                        <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold dark:bg-indigo-900/30 dark:text-indigo-300">
                           {(user.display_name || user.username).charAt(0).toUpperCase()}
                         </div>
-                        <span className="font-medium text-gray-900">
+                        <span className="font-medium text-gray-900 dark:text-gray-100">
                           {user.username}
                           {isSelf && (
-                            <span className="ml-1.5 text-xs text-indigo-500">(나)</span>
+                            <span className="ml-1.5 text-xs text-indigo-500 dark:text-indigo-400">(나)</span>
                           )}
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{user.display_name || '-'}</td>
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{user.display_name || '-'}</td>
                     <td className="px-4 py-3">
                       <Badge color={ROLE_COLORS[user.role] || 'gray'}>
                         <Shield size={11} className="mr-1" />
@@ -210,10 +210,10 @@ export default function Users() {
                         </Badge>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400 text-xs">
                       {user.last_login ? formatRelative(user.last_login) : '-'}
                     </td>
-                    <td className="px-4 py-3 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400 text-xs">
                       {formatDateTime(user.created_at)}
                     </td>
                     <td className="px-4 py-3 text-right">
@@ -324,9 +324,9 @@ export default function Users() {
       >
         {editingUser && (
           <div className="space-y-4">
-            <div className="bg-gray-50 rounded-lg px-4 py-3">
-              <p className="text-sm text-gray-500">아이디</p>
-              <p className="text-sm font-medium text-gray-900">{editingUser.username}</p>
+            <div className="bg-gray-50 rounded-lg px-4 py-3 dark:bg-gray-800/50">
+              <p className="text-sm text-gray-500 dark:text-gray-400">아이디</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{editingUser.username}</p>
             </div>
 
             <Input
@@ -352,15 +352,15 @@ export default function Users() {
               helperText="비밀번호를 변경하려면 입력하세요."
             />
 
-            <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+            <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
               <div>
-                <p className="text-sm font-medium text-gray-700">계정 활성화</p>
-                <p className="text-xs text-gray-500">비활성화하면 로그인할 수 없습니다.</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">계정 활성화</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">비활성화하면 로그인할 수 없습니다.</p>
               </div>
               <button
                 onClick={() => setEditForm((prev) => ({ ...prev, is_active: !prev.is_active }))}
                 className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ${
-                  editForm.is_active ? 'bg-indigo-600' : 'bg-gray-200'
+                  editForm.is_active ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-gray-700'
                 }`}
               >
                 <span

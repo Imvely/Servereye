@@ -195,7 +195,7 @@ export default function ServerList() {
     <div className="space-y-6">
       {/* ── Header ── */}
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-900">서버 관리</h1>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">서버 관리</h1>
         <Button
           variant="primary"
           icon={<Plus size={16} />}
@@ -211,20 +211,20 @@ export default function ServerList() {
       {/* ── Filter Bar ── */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[200px] max-w-xs">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
           <input
             type="text"
             placeholder="서버명, IP 검색..."
             value={searchQuery}
             onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
-            className="h-9 w-full pl-9 pr-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="h-9 w-full pl-9 pr-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:placeholder:text-gray-500"
           />
         </div>
 
         <select
           value={groupFilter}
           onChange={(e) => { setGroupFilter(e.target.value); setPage(1); }}
-          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
         >
           <option value="">전체 그룹</option>
           {groups.map((g) => (
@@ -235,7 +235,7 @@ export default function ServerList() {
         <select
           value={statusFilter}
           onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
-          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
         >
           {STATUS_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -245,7 +245,7 @@ export default function ServerList() {
         <select
           value={osFilter}
           onChange={(e) => { setOsFilter(e.target.value); setPage(1); }}
-          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
         >
           {OS_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -255,8 +255,8 @@ export default function ServerList() {
 
       {/* ── Batch Actions ── */}
       {selected.size > 0 && (
-        <div className="flex items-center gap-3 bg-indigo-50 border border-indigo-200 rounded-lg px-4 py-2">
-          <span className="text-sm font-medium text-indigo-700">{selected.size}개 선택됨</span>
+        <div className="flex items-center gap-3 bg-indigo-50 border border-indigo-200 rounded-lg px-4 py-2 dark:bg-indigo-900/20 dark:border-indigo-700">
+          <span className="text-sm font-medium text-indigo-700 dark:text-indigo-400">{selected.size}개 선택됨</span>
           <Button variant="danger" size="sm" icon={<Trash2 size={14} />} onClick={handleBatchDelete}>
             일괄 삭제
           </Button>
@@ -267,7 +267,7 @@ export default function ServerList() {
       )}
 
       {/* ── Table ── */}
-      <div className="overflow-x-auto bg-white border border-gray-200 rounded-xl">
+      <div className="overflow-x-auto bg-white border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 size={24} className="animate-spin text-gray-400" />
@@ -277,7 +277,7 @@ export default function ServerList() {
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100 text-left">
+              <tr className="border-b border-gray-100 text-left dark:border-gray-700">
                 <th className="px-4 py-3 w-10">
                   <input
                     type="checkbox"
@@ -286,19 +286,19 @@ export default function ServerList() {
                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                   />
                 </th>
-                <th className="px-4 py-3 font-medium text-gray-500">서버명</th>
-                <th className="px-4 py-3 font-medium text-gray-500">IP</th>
-                <th className="px-4 py-3 font-medium text-gray-500">OS</th>
-                <th className="px-4 py-3 font-medium text-gray-500">그룹</th>
-                <th className="px-4 py-3 font-medium text-gray-500">상태</th>
-                <th className="px-4 py-3 font-medium text-gray-500 text-right">작업</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">서버명</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">IP</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">OS</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">그룹</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">상태</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 text-right">작업</th>
               </tr>
             </thead>
             <tbody>
               {servers.map((s) => (
                 <tr
                   key={s.server_id}
-                  className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
+                  className="border-b border-gray-50 hover:bg-gray-50 transition-colors dark:border-gray-700 dark:hover:bg-gray-700/50"
                 >
                   <td className="px-4 py-3">
                     <input
@@ -308,10 +308,10 @@ export default function ServerList() {
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                     />
                   </td>
-                  <td className="px-4 py-3 font-medium text-gray-900">{s.display_name}</td>
-                  <td className="px-4 py-3 text-gray-600">{s.ip_address}</td>
-                  <td className="px-4 py-3 text-gray-600 capitalize">{s.os_type}</td>
-                  <td className="px-4 py-3 text-gray-600">{s.group_name || '-'}</td>
+                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{s.display_name}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{s.ip_address}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400 capitalize">{s.os_type}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{s.group_name || '-'}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={s.status} />
                   </td>
@@ -350,7 +350,7 @@ export default function ServerList() {
       {/* ── Pagination ── */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
             총 {total}개 중 {(page - 1) * 20 + 1}-{Math.min(page * 20, total)}
           </span>
           <div className="inline-flex items-center gap-1">
@@ -380,7 +380,7 @@ export default function ServerList() {
                   className={`h-8 w-8 text-sm rounded-lg font-medium transition-colors ${
                     page === pageNum
                       ? 'bg-indigo-600 text-white'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
                   }`}
                 >
                   {pageNum}
@@ -420,7 +420,7 @@ export default function ServerList() {
           </>
         }
       >
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           이 서버를 삭제하시겠습니까? 관련된 메트릭, 알림 데이터가 모두 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
         </p>
       </Modal>
@@ -533,15 +533,15 @@ export default function ServerList() {
             />
           </div>
           <div className="col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">태그</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">태그</label>
             <div className="flex flex-wrap gap-2 mb-2">
               {(form.tags || []).map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full text-xs font-medium"
+                  className="inline-flex items-center gap-1 bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full text-xs font-medium dark:bg-indigo-900/30 dark:text-indigo-300"
                 >
                   {tag}
-                  <button onClick={() => removeTag(tag)} className="hover:text-indigo-900">
+                  <button onClick={() => removeTag(tag)} className="hover:text-indigo-900 dark:hover:text-indigo-200">
                     &times;
                   </button>
                 </span>
@@ -554,7 +554,7 @@ export default function ServerList() {
                 onChange={(e) => setTagInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addTag(); } }}
                 placeholder="태그 입력 후 Enter"
-                className="h-9 flex-1 rounded-lg border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="h-9 flex-1 rounded-lg border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:placeholder:text-gray-500"
               />
               <Button variant="secondary" size="sm" onClick={addTag}>
                 추가
@@ -569,7 +569,7 @@ export default function ServerList() {
                 onChange={(e) => updateForm({ use_ssl: e.target.checked })}
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
-              <label className="text-sm text-gray-700">SSL 사용 (HTTPS)</label>
+              <label className="text-sm text-gray-700 dark:text-gray-300">SSL 사용 (HTTPS)</label>
             </div>
           )}
         </div>

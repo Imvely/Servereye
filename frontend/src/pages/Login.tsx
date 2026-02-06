@@ -42,23 +42,23 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-violet-50">
-      <div className="w-full max-w-sm mx-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-violet-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+      <div className="w-full max-w-[400px] mx-4">
         {/* Branding */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-indigo-600 rounded-2xl shadow-lg shadow-indigo-200 mb-4">
-            <Monitor size={28} className="text-white" />
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-indigo-900/30 mb-5">
+            <Monitor size={32} className="text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">ServerEye</h1>
-          <p className="text-sm text-gray-500 mt-1">서버 모니터링 시스템</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">ServerEye</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1.5">서버 모니터링 시스템</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Error message */}
             {error && (
-              <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+              <div className="flex items-center gap-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg px-4 py-3 text-sm">
                 <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
@@ -93,7 +93,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-[34px] text-gray-400 hover:text-gray-600 transition-colors"
+                className="absolute right-3 top-[36px] text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                 tabIndex={-1}
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -101,42 +101,44 @@ export default function Login() {
             </div>
 
             {/* Submit */}
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              className="w-full"
-              disabled={loading}
-            >
-              {loading ? (
-                <span className="inline-flex items-center gap-2">
-                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      fill="none"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                    />
-                  </svg>
-                  로그인 중...
-                </span>
-              ) : (
-                '로그인'
-              )}
-            </Button>
+            <div className="pt-1">
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                className="w-full"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="inline-flex items-center gap-2">
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                      />
+                    </svg>
+                    로그인 중...
+                  </span>
+                ) : (
+                  '로그인'
+                )}
+              </Button>
+            </div>
           </form>
         </div>
 
         {/* Footer */}
-        <p className="text-center text-xs text-gray-400 mt-6">
+        <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-8">
           ServerEye v1.0 &middot; Infra Monitoring Platform
         </p>
       </div>

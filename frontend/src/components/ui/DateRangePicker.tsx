@@ -55,7 +55,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-2 h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0"
+        className="inline-flex items-center gap-2 h-10 px-3 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0"
       >
         <Calendar size={16} className="text-gray-400" />
         <span>
@@ -66,7 +66,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-2 left-0 z-50 bg-white border border-gray-200 rounded-xl shadow-lg p-4 min-w-[340px]">
+        <div className="absolute top-full mt-2 left-0 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4 min-w-[340px]">
           {/* Quick select buttons */}
           <div className="flex gap-2 mb-4">
             {quickSelects.map((qs) => (
@@ -74,7 +74,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
                 key={qs.label}
                 type="button"
                 onClick={() => handleQuickSelect(qs.days)}
-                className="px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-200 text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 transition-colors"
+                className="px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-700 dark:hover:text-indigo-400 hover:border-indigo-200 dark:hover:border-indigo-700 transition-colors"
               >
                 {qs.label}
               </button>
@@ -84,7 +84,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
           {/* Date pickers */}
           <div className="flex items-center gap-3">
             <div className="flex-1">
-              <label className="block text-xs font-medium text-gray-500 mb-1">
+              <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
                 시작일
               </label>
               <DatePicker
@@ -95,13 +95,13 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
                 endDate={endDate}
                 maxDate={endDate || new Date()}
                 dateFormat="yyyy-MM-dd"
-                className="h-9 w-full rounded-lg border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="h-10 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 placeholderText="YYYY-MM-DD"
               />
             </div>
             <span className="text-gray-400 mt-5">~</span>
             <div className="flex-1">
-              <label className="block text-xs font-medium text-gray-500 mb-1">
+              <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
                 종료일
               </label>
               <DatePicker
@@ -113,21 +113,21 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
                 minDate={startDate ?? undefined}
                 maxDate={new Date()}
                 dateFormat="yyyy-MM-dd"
-                className="h-9 w-full rounded-lg border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="h-10 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 placeholderText="YYYY-MM-DD"
               />
             </div>
           </div>
 
           {/* Actions */}
-          <div className="flex justify-end gap-2 mt-4 pt-3 border-t border-gray-100">
+          <div className="flex justify-end gap-2 mt-4 pt-3 border-t border-gray-100 dark:border-gray-700">
             <button
               type="button"
               onClick={() => {
                 onChange({ start: null, end: null });
                 setIsOpen(false);
               }}
-              className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
               초기화
             </button>

@@ -188,8 +188,8 @@ export default function Settings() {
 
         {/* Special: Webhook section in integration tab */}
         {cat.key === 'integration' && (
-          <div className="pt-4 border-t border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">Webhook 설정</h3>
+          <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Webhook 설정</h3>
             <div className="space-y-4">
               <Toggle
                 label="Webhook 활성화"
@@ -237,8 +237,8 @@ export default function Settings() {
     <div className="space-y-6">
       {/* ── Header ── */}
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <SettingsIcon size={22} className="text-indigo-600" />
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <SettingsIcon size={22} className="text-indigo-600 dark:text-indigo-400" />
           설정
         </h1>
         <Button

@@ -229,7 +229,7 @@ export default function AlertRules() {
     <div className="space-y-6">
       {/* ── Header ── */}
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-900">알림 규칙</h1>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">알림 규칙</h1>
         <div className="flex items-center gap-2">
           <Button
             variant="secondary"
@@ -246,7 +246,7 @@ export default function AlertRules() {
       </div>
 
       {/* ── Rules Table ── */}
-      <div className="overflow-x-auto bg-white border border-gray-200 rounded-xl">
+      <div className="overflow-x-auto bg-white border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 size={24} className="animate-spin text-gray-400" />
@@ -256,53 +256,53 @@ export default function AlertRules() {
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100 text-left">
-                <th className="px-4 py-3 font-medium text-gray-500 w-10">#</th>
-                <th className="px-4 py-3 font-medium text-gray-500">규칙명</th>
-                <th className="px-4 py-3 font-medium text-gray-500">대상</th>
-                <th className="px-4 py-3 font-medium text-gray-500">메트릭</th>
-                <th className="px-4 py-3 font-medium text-gray-500 text-center">경고</th>
-                <th className="px-4 py-3 font-medium text-gray-500 text-center">위험</th>
-                <th className="px-4 py-3 font-medium text-gray-500 text-center">지속(초)</th>
-                <th className="px-4 py-3 font-medium text-gray-500 text-center">활성</th>
-                <th className="px-4 py-3 font-medium text-gray-500 text-right">작업</th>
+              <tr className="border-b border-gray-100 text-left dark:border-gray-700">
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 w-10">#</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">규칙명</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">대상</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">메트릭</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 text-center">경고</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 text-center">위험</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 text-center">지속(초)</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 text-center">활성</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 text-right">작업</th>
               </tr>
             </thead>
             <tbody>
               {rules.map((rule, idx) => (
-                <tr key={rule.rule_id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 text-gray-400">{idx + 1}</td>
+                <tr key={rule.rule_id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors dark:border-gray-700 dark:hover:bg-gray-700/50">
+                  <td className="px-4 py-3 text-gray-400 dark:text-gray-500">{idx + 1}</td>
                   <td className="px-4 py-3">
-                    <p className="font-medium text-gray-900">{rule.rule_name}</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">{rule.rule_name}</p>
                     {rule.description && (
-                      <p className="text-xs text-gray-500 mt-0.5 truncate max-w-[200px]">{rule.description}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate max-w-[200px]">{rule.description}</p>
                     )}
                   </td>
                   <td className="px-4 py-3">
                     <Badge color="indigo">{getTargetLabel(rule)}</Badge>
                   </td>
-                  <td className="px-4 py-3 text-gray-700">
+                  <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
                     {METRIC_LABELS[rule.metric_name] || rule.metric_name}
                   </td>
                   <td className="px-4 py-3 text-center">
                     {rule.warning_value != null ? (
-                      <span className="text-amber-600 font-medium">
+                      <span className="text-amber-600 dark:text-amber-400 font-medium">
                         {rule.condition_op} {rule.warning_value}
                       </span>
                     ) : (
-                      <span className="text-gray-300">-</span>
+                      <span className="text-gray-300 dark:text-gray-600">-</span>
                     )}
                   </td>
                   <td className="px-4 py-3 text-center">
                     {rule.critical_value != null ? (
-                      <span className="text-red-600 font-medium">
+                      <span className="text-red-600 dark:text-red-400 font-medium">
                         {rule.condition_op} {rule.critical_value}
                       </span>
                     ) : (
-                      <span className="text-gray-300">-</span>
+                      <span className="text-gray-300 dark:text-gray-600">-</span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-center tabular-nums text-gray-600">{rule.duration_sec}s</td>
+                  <td className="px-4 py-3 text-center tabular-nums text-gray-600 dark:text-gray-400">{rule.duration_sec}s</td>
                   <td className="px-4 py-3 text-center">
                     <Toggle
                       enabled={rule.is_enabled}
@@ -355,7 +355,7 @@ export default function AlertRules() {
           </>
         }
       >
-        <p className="text-sm text-gray-600">이 알림 규칙을 삭제하시겠습니까?</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400">이 알림 규칙을 삭제하시겠습니까?</p>
       </Modal>
 
       {/* ── Create/Edit Modal ── */}

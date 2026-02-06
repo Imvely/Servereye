@@ -15,8 +15,8 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white border border-gray-200 rounded-xl shadow-sm p-5 ${
-        hoverable ? 'transition-shadow duration-150 hover:shadow-md' : ''
+      className={`bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-5 ${
+        hoverable ? 'transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600' : ''
       } ${onClick ? 'cursor-pointer' : ''} ${className}`}
       onClick={onClick}
     >
@@ -40,7 +40,7 @@ export const CardTitle: React.FC<{
   children: React.ReactNode;
   className?: string;
 }> = ({ children, className = '' }) => (
-  <h3 className={`text-[15px] font-semibold text-gray-900 ${className}`}>
+  <h3 className={`text-[15px] font-semibold text-gray-900 dark:text-white ${className}`}>
     {children}
   </h3>
 );

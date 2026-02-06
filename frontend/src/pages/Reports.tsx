@@ -102,8 +102,8 @@ export default function Reports() {
   return (
     <div className="space-y-6">
       {/* ── Header ── */}
-      <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-        <FileText size={22} className="text-indigo-600" />
+      <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+        <FileText size={22} className="text-indigo-600 dark:text-indigo-400" />
         리포트
       </h1>
 
@@ -116,7 +116,7 @@ export default function Reports() {
           <div className="space-y-5">
             {/* Report type selection */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">리포트 유형</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">리포트 유형</label>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {REPORT_TYPES.map((type) => (
                   <button
@@ -124,16 +124,16 @@ export default function Reports() {
                     onClick={() => setReportType(type.value)}
                     className={`text-left p-3 rounded-xl border-2 transition-all ${
                       reportType === type.value
-                        ? 'border-indigo-500 bg-indigo-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 dark:border-indigo-600'
+                        : 'border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500'
                     }`}
                   >
                     <p className={`text-sm font-medium ${
-                      reportType === type.value ? 'text-indigo-700' : 'text-gray-900'
+                      reportType === type.value ? 'text-indigo-700 dark:text-indigo-300' : 'text-gray-900 dark:text-gray-100'
                     }`}>
                       {type.label}
                     </p>
-                    <p className="text-xs text-gray-500 mt-0.5">{type.description}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{type.description}</p>
                   </button>
                 ))}
               </div>
@@ -142,7 +142,7 @@ export default function Reports() {
             {/* Date range and report name */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">기간 선택</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">기간 선택</label>
                 <DateRangePicker
                   startDate={startDate}
                   endDate={endDate}
@@ -165,15 +165,15 @@ export default function Reports() {
             {/* Server selection */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-gray-700">대상 서버 (선택)</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">대상 서버 (선택)</label>
                 <button
                   onClick={selectAllServers}
-                  className="text-xs text-indigo-600 hover:text-indigo-700 font-medium"
+                  className="text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium"
                 >
                   {selectedServers.length === servers.length ? '전체 해제' : '전체 선택'}
                 </button>
               </div>
-              <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto p-3 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto p-3 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700">
                 {servers.length === 0 ? (
                   <p className="text-xs text-gray-400">비워두면 전체 서버 대상</p>
                 ) : (
@@ -183,8 +183,8 @@ export default function Reports() {
                       onClick={() => toggleServer(s.server_id)}
                       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border ${
                         selectedServers.includes(s.server_id)
-                          ? 'border-indigo-300 bg-indigo-50 text-indigo-700'
-                          : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-100'
+                          ? 'border-indigo-300 bg-indigo-50 text-indigo-700 dark:border-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300'
+                          : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
                       }`}
                     >
                       <Server size={12} />
@@ -194,7 +194,7 @@ export default function Reports() {
                 )}
               </div>
               {selectedServers.length > 0 && (
-                <p className="text-xs text-gray-500 mt-1">{selectedServers.length}개 서버 선택됨</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{selectedServers.length}개 서버 선택됨</p>
               )}
             </div>
 
@@ -233,35 +233,35 @@ export default function Reports() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100 text-left">
-                    <th className="px-4 py-3 font-medium text-gray-500">리포트명</th>
-                    <th className="px-4 py-3 font-medium text-gray-500">유형</th>
-                    <th className="px-4 py-3 font-medium text-gray-500">기간</th>
-                    <th className="px-4 py-3 font-medium text-gray-500">크기</th>
-                    <th className="px-4 py-3 font-medium text-gray-500">생성자</th>
-                    <th className="px-4 py-3 font-medium text-gray-500">생성일</th>
-                    <th className="px-4 py-3 font-medium text-gray-500 text-right">다운로드</th>
+                  <tr className="border-b border-gray-100 text-left dark:border-gray-700">
+                    <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">리포트명</th>
+                    <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">유형</th>
+                    <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">기간</th>
+                    <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">크기</th>
+                    <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">생성자</th>
+                    <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">생성일</th>
+                    <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400 text-right">다운로드</th>
                   </tr>
                 </thead>
                 <tbody>
                   {reports.map((report) => {
                     const typeLabel = REPORT_TYPES.find((t) => t.value === report.report_type)?.label || report.report_type;
                     return (
-                      <tr key={report.report_id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                        <td className="px-4 py-3 font-medium text-gray-900">{report.report_name}</td>
+                      <tr key={report.report_id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors dark:border-gray-700 dark:hover:bg-gray-700/50">
+                        <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{report.report_name}</td>
                         <td className="px-4 py-3">
                           <Badge color="indigo">{typeLabel}</Badge>
                         </td>
-                        <td className="px-4 py-3 text-gray-600 text-xs">
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-400 text-xs">
                           {report.date_from} ~ {report.date_to}
                         </td>
-                        <td className="px-4 py-3 text-gray-500 tabular-nums">
+                        <td className="px-4 py-3 text-gray-500 dark:text-gray-400 tabular-nums">
                           {report.file_size_kb > 1024
                             ? `${(report.file_size_kb / 1024).toFixed(1)} MB`
                             : `${report.file_size_kb} KB`}
                         </td>
-                        <td className="px-4 py-3 text-gray-500">{report.created_by}</td>
-                        <td className="px-4 py-3 text-gray-500 text-xs">{formatDateTime(report.created_at)}</td>
+                        <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{report.created_by}</td>
+                        <td className="px-4 py-3 text-gray-500 dark:text-gray-400 text-xs">{formatDateTime(report.created_at)}</td>
                         <td className="px-4 py-3 text-right">
                           <Button
                             variant="ghost"

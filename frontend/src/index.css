@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode (using .dark class on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* 포인트 컬러 (Indigo) */
   --color-primary-50: #EEF2FF;
@@ -22,33 +25,36 @@
   --color-maintenance: #8B5CF6;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* NOTE: Do NOT use unlayered * reset — it overrides Tailwind v4's layered utilities */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    'Apple SD Gothic Neo',
-    'Pretendard Variable',
-    'Malgun Gothic',
-    'Segoe UI',
-    system-ui,
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  body {
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      'Apple SD Gothic Neo',
+      'Pretendard Variable',
+      'Malgun Gothic',
+      'Segoe UI',
+      system-ui,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-.font-mono {
-  font-family:
-    'JetBrains Mono',
-    'Cascadia Code',
-    'D2Coding',
-    'Consolas',
-    monospace;
+  .font-mono {
+    font-family:
+      'JetBrains Mono',
+      'Cascadia Code',
+      'D2Coding',
+      'Consolas',
+      monospace;
+  }
 }
 
 /* Scrollbar styling */

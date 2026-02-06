@@ -7,6 +7,7 @@ import {
   FileText,
   Settings,
   Users,
+  ShieldAlert,
 } from 'lucide-react';
 
 interface NavItem {
@@ -19,6 +20,7 @@ const mainNav: NavItem[] = [
   { label: '대시보드', path: '/', icon: <LayoutDashboard size={20} /> },
   { label: '서버 관리', path: '/servers', icon: <Server size={20} /> },
   { label: '알림', path: '/alerts', icon: <Bell size={20} /> },
+  { label: '알림 규칙', path: '/alert-rules', icon: <ShieldAlert size={20} /> },
   { label: '리포트', path: '/reports', icon: <FileText size={20} /> },
 ];
 
@@ -42,10 +44,10 @@ const Sidebar: React.FC = () => {
       <Link
         key={item.path}
         to={item.path}
-        className={`flex items-center gap-3 h-10 px-3 rounded-lg text-sm transition-colors duration-150 ${
+        className={`flex items-center gap-3 h-10 px-3 rounded-lg text-sm transition-all duration-150 ${
           active
-            ? 'bg-indigo-50 text-indigo-700 font-medium'
-            : 'text-gray-600 hover:bg-gray-50'
+            ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 font-semibold'
+            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200'
         }`}
       >
         <span className="shrink-0">{item.icon}</span>
@@ -55,20 +57,29 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="fixed left-0 top-14 bottom-0 w-60 bg-white border-r border-gray-200 flex flex-col z-30">
+    <aside
+      className="fixed left-0 bottom-0 w-60 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col z-30"
+      style={{ top: '3.5rem' }}
+    >
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
+        <p className="px-3 mb-2 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+          메뉴
+        </p>
         {mainNav.map(renderNavItem)}
 
         {/* Separator */}
-        <div className="my-2 border-t border-gray-100" />
+        <div className="my-3 border-t border-gray-100 dark:border-gray-700" />
 
+        <p className="px-3 mb-2 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+          관리
+        </p>
         {subNav.map(renderNavItem)}
       </nav>
 
       {/* Version */}
-      <div className="px-4 py-3 border-t border-gray-100">
-        <span className="text-xs text-gray-400">v1.0.0</span>
+      <div className="px-4 py-3 border-t border-gray-100 dark:border-gray-700">
+        <span className="text-xs text-gray-400 dark:text-gray-500">ServerEye v1.0.0</span>
       </div>
     </aside>
   );

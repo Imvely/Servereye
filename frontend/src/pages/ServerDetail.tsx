@@ -196,7 +196,7 @@ export default function ServerDetail() {
 
   if (!server) {
     return (
-      <div className="text-center py-20 text-gray-500">
+      <div className="text-center py-20 text-gray-500 dark:text-gray-400">
         <p>서버를 찾을 수 없습니다.</p>
         <Button variant="secondary" className="mt-4" onClick={() => navigate('/servers')}>
           목록으로 돌아가기
@@ -218,10 +218,10 @@ export default function ServerDetail() {
         />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-xl font-bold text-gray-900">{server.display_name}</h1>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">{server.display_name}</h1>
             <StatusBadge status={server.status} />
           </div>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {server.ip_address}
             {server.os_version && ` / ${server.os_type} ${server.os_version}`}
             {server.cpu_model && ` / ${server.cpu_model} (${server.cpu_cores}C)`}
@@ -239,15 +239,15 @@ export default function ServerDetail() {
       </div>
 
       {/* ── Tab Navigation ── */}
-      <div className="flex gap-1 border-b border-gray-200 overflow-x-auto">
+      <div className="flex gap-1 border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
         {TABS.map((tab) => (
           <button
             key={tab.key}
             onClick={() => handleTabChange(tab.key)}
             className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 transition-colors duration-150 whitespace-nowrap ${
               activeTab === tab.key
-                ? 'border-indigo-600 text-indigo-700'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'border-indigo-600 text-indigo-700 dark:text-indigo-400'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
             }`}
           >
             {tab.icon}
@@ -259,16 +259,16 @@ export default function ServerDetail() {
       {/* ── Time Range Selector ── */}
       {['overview', 'cpu', 'memory', 'disk', 'network'].includes(activeTab) && (
         <div className="flex items-center gap-2">
-          <Clock size={14} className="text-gray-400" />
-          <div className="flex gap-1 bg-gray-100 rounded-lg p-0.5">
+          <Clock size={14} className="text-gray-400 dark:text-gray-500" />
+          <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5">
             {TIME_RANGES.map((tr) => (
               <button
                 key={tr.value}
                 onClick={() => setTimeRange(tr.value)}
                 className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
                   timeRange === tr.value
-                    ? 'bg-white text-indigo-700 shadow-sm'
-                    : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white dark:bg-gray-700 text-indigo-700 dark:text-indigo-400 shadow-sm'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
                 }`}
               >
                 {tr.label}
@@ -400,8 +400,8 @@ function OverviewTab({
                 return (
                   <div key={a.alert_id} className={`flex items-center gap-3 px-3 py-2 rounded-lg border-l-4 ${style.bg} ${style.border}`}>
                     <AlertTriangle size={14} className={style.text} />
-                    <span className="text-sm text-gray-800 flex-1 truncate">{a.message}</span>
-                    <span className="text-xs text-gray-500">{formatRelative(a.created_at)}</span>
+                    <span className="text-sm text-gray-800 dark:text-gray-200 flex-1 truncate">{a.message}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{formatRelative(a.created_at)}</span>
                   </div>
                 );
               })}
@@ -435,12 +435,12 @@ function MetricCard({
         <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${color}15` }}>
           <span style={{ color }}>{icon}</span>
         </div>
-        <span className="text-sm text-gray-600">{label}</span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">{label}</span>
       </div>
-      <p className="text-2xl font-bold text-gray-900">{value}</p>
-      {sub && <p className="text-xs text-gray-500 mt-1">{sub}</p>}
+      <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
+      {sub && <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{sub}</p>}
       {pct != null && (
-        <div className="mt-3 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+        <div className="mt-3 h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{ width: `${Math.min(pct, 100)}%`, backgroundColor: color }}
@@ -544,14 +544,14 @@ function DiskTab({
               {disks.map((d, i) => (
                 <div key={i}>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       {d.mount || d.DeviceID || `Disk ${i + 1}`}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
                       {formatBytesGB(d.used_gb)} / {formatBytesGB(d.total_gb)} ({d.usage_pct.toFixed(1)}%)
                     </span>
                   </div>
-                  <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{
@@ -641,33 +641,33 @@ function ServiceTab({ services, loading }: { services: ServiceInfo[]; loading: b
       <CardHeader><CardTitle>서비스 목록 ({services.length})</CardTitle></CardHeader>
       <CardContent>
         {services.length === 0 ? (
-          <p className="text-sm text-gray-400 py-8 text-center">서비스 정보가 없습니다.</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 py-8 text-center">서비스 정보가 없습니다.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-100 text-left">
-                  <th className="px-3 py-2 font-medium text-gray-500">서비스명</th>
-                  <th className="px-3 py-2 font-medium text-gray-500">표시 이름</th>
-                  <th className="px-3 py-2 font-medium text-gray-500">상태</th>
-                  <th className="px-3 py-2 font-medium text-gray-500">시작 유형</th>
-                  <th className="px-3 py-2 font-medium text-gray-500">PID</th>
-                  <th className="px-3 py-2 font-medium text-gray-500">메모리</th>
+                <tr className="border-b border-gray-100 dark:border-gray-700 text-left">
+                  <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">서비스명</th>
+                  <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">표시 이름</th>
+                  <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">상태</th>
+                  <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">시작 유형</th>
+                  <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">PID</th>
+                  <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">메모리</th>
                 </tr>
               </thead>
               <tbody>
                 {services.map((svc, i) => (
-                  <tr key={i} className="border-b border-gray-50 hover:bg-gray-50">
+                  <tr key={i} className="border-b border-gray-50 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                     <td className="px-3 py-2 font-mono text-xs">{svc.service_name}</td>
-                    <td className="px-3 py-2 text-gray-700">{svc.display_name}</td>
+                    <td className="px-3 py-2 text-gray-700 dark:text-gray-300">{svc.display_name}</td>
                     <td className="px-3 py-2">
                       <Badge color={svc.status === 'Running' || svc.status === 'running' ? 'emerald' : 'gray'}>
                         {svc.status}
                       </Badge>
                     </td>
-                    <td className="px-3 py-2 text-gray-500">{svc.start_type}</td>
-                    <td className="px-3 py-2 text-gray-500 tabular-nums">{svc.pid ?? '-'}</td>
-                    <td className="px-3 py-2 text-gray-500 tabular-nums">{svc.mem_mb != null ? formatBytes(svc.mem_mb) : '-'}</td>
+                    <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{svc.start_type}</td>
+                    <td className="px-3 py-2 text-gray-500 dark:text-gray-400 tabular-nums">{svc.pid ?? '-'}</td>
+                    <td className="px-3 py-2 text-gray-500 dark:text-gray-400 tabular-nums">{svc.mem_mb != null ? formatBytes(svc.mem_mb) : '-'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -702,7 +702,7 @@ function ProcessTab({
 
   const thBtn = (key: keyof ProcessInfo, label: string) => (
     <th
-      className="px-3 py-2 font-medium text-gray-500 cursor-pointer hover:text-gray-700 select-none"
+      className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 select-none"
       onClick={() => onSort(key)}
     >
       <span className="inline-flex items-center gap-1">
@@ -716,12 +716,12 @@ function ProcessTab({
       <CardHeader><CardTitle>프로세스 목록 ({processes.length})</CardTitle></CardHeader>
       <CardContent>
         {processes.length === 0 ? (
-          <p className="text-sm text-gray-400 py-8 text-center">프로세스 정보가 없습니다.</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 py-8 text-center">프로세스 정보가 없습니다.</p>
         ) : (
           <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
             <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-white">
-                <tr className="border-b border-gray-100 text-left">
+              <thead className="sticky top-0 bg-white dark:bg-gray-800">
+                <tr className="border-b border-gray-100 dark:border-gray-700 text-left">
                   {thBtn('pid', 'PID')}
                   {thBtn('name', '이름')}
                   {thBtn('username', '사용자')}
@@ -729,23 +729,23 @@ function ProcessTab({
                   {thBtn('mem_pct', 'MEM%')}
                   {thBtn('mem_mb', 'MEM(MB)')}
                   {thBtn('thread_count', '스레드')}
-                  <th className="px-3 py-2 font-medium text-gray-500">상태</th>
+                  <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">상태</th>
                 </tr>
               </thead>
               <tbody>
                 {processes.map((p, i) => (
-                  <tr key={i} className="border-b border-gray-50 hover:bg-gray-50">
-                    <td className="px-3 py-2 tabular-nums text-gray-500">{p.pid}</td>
-                    <td className="px-3 py-2 font-medium text-gray-900 max-w-[200px] truncate">{p.name}</td>
-                    <td className="px-3 py-2 text-gray-500">{p.username}</td>
+                  <tr key={i} className="border-b border-gray-50 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                    <td className="px-3 py-2 tabular-nums text-gray-500 dark:text-gray-400">{p.pid}</td>
+                    <td className="px-3 py-2 font-medium text-gray-900 dark:text-gray-100 max-w-[200px] truncate">{p.name}</td>
+                    <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{p.username}</td>
                     <td className="px-3 py-2 tabular-nums" style={{ color: getGaugeColor(p.cpu_pct) }}>
                       {p.cpu_pct.toFixed(1)}%
                     </td>
                     <td className="px-3 py-2 tabular-nums" style={{ color: getGaugeColor(p.mem_pct) }}>
                       {p.mem_pct.toFixed(1)}%
                     </td>
-                    <td className="px-3 py-2 tabular-nums text-gray-500">{formatBytes(p.mem_mb)}</td>
-                    <td className="px-3 py-2 tabular-nums text-gray-500">{p.thread_count}</td>
+                    <td className="px-3 py-2 tabular-nums text-gray-500 dark:text-gray-400">{formatBytes(p.mem_mb)}</td>
+                    <td className="px-3 py-2 tabular-nums text-gray-500 dark:text-gray-400">{p.thread_count}</td>
                     <td className="px-3 py-2">
                       <Badge color={p.status === 'running' ? 'emerald' : 'gray'}>{p.status}</Badge>
                     </td>
@@ -789,7 +789,7 @@ function LogTab({
         <select
           value={filter.level}
           onChange={(e) => onFilterChange({ ...filter, level: e.target.value })}
-          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="">전체 레벨</option>
           <option value="error">Error</option>
@@ -798,13 +798,13 @@ function LogTab({
           <option value="debug">Debug</option>
         </select>
         <div className="relative flex-1 max-w-xs">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
           <input
             type="text"
             placeholder="로그 검색..."
             value={filter.search}
             onChange={(e) => onFilterChange({ ...filter, search: e.target.value })}
-            className="h-9 w-full pl-9 pr-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="h-9 w-full pl-9 pr-3 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
       </div>
@@ -812,22 +812,22 @@ function LogTab({
       <Card>
         <CardContent>
           {logs.length === 0 ? (
-            <p className="text-sm text-gray-400 py-8 text-center">로그가 없습니다.</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500 py-8 text-center">로그가 없습니다.</p>
           ) : (
             <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
               <table className="w-full text-sm">
-                <thead className="sticky top-0 bg-white">
-                  <tr className="border-b border-gray-100 text-left">
-                    <th className="px-3 py-2 font-medium text-gray-500 w-36">시간</th>
-                    <th className="px-3 py-2 font-medium text-gray-500 w-20">레벨</th>
-                    <th className="px-3 py-2 font-medium text-gray-500 w-24">소스</th>
-                    <th className="px-3 py-2 font-medium text-gray-500">메시지</th>
+                <thead className="sticky top-0 bg-white dark:bg-gray-800">
+                  <tr className="border-b border-gray-100 dark:border-gray-700 text-left">
+                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 w-36">시간</th>
+                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 w-20">레벨</th>
+                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 w-24">소스</th>
+                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">메시지</th>
                   </tr>
                 </thead>
                 <tbody>
                   {logs.map((log) => (
-                    <tr key={log.id} className="border-b border-gray-50 hover:bg-gray-50">
-                      <td className="px-3 py-2 text-xs text-gray-500 tabular-nums whitespace-nowrap">
+                    <tr key={log.id} className="border-b border-gray-50 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <td className="px-3 py-2 text-xs text-gray-500 dark:text-gray-400 tabular-nums whitespace-nowrap">
                         {formatDateTime(log.occurred_at)}
                       </td>
                       <td className="px-3 py-2">
@@ -835,8 +835,8 @@ function LogTab({
                           {log.log_level}
                         </span>
                       </td>
-                      <td className="px-3 py-2 text-xs text-gray-500">{log.log_source}</td>
-                      <td className="px-3 py-2 text-gray-700 max-w-[500px] truncate">{log.message}</td>
+                      <td className="px-3 py-2 text-xs text-gray-500 dark:text-gray-400">{log.log_source}</td>
+                      <td className="px-3 py-2 text-gray-700 dark:text-gray-300 max-w-[500px] truncate">{log.message}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -858,26 +858,26 @@ function HealthCheckTab({ checks }: { checks: HealthCheck[] }) {
       <CardHeader><CardTitle>헬스체크 ({checks.length})</CardTitle></CardHeader>
       <CardContent>
         {checks.length === 0 ? (
-          <p className="text-sm text-gray-400 py-8 text-center">등록된 헬스체크가 없습니다.</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 py-8 text-center">등록된 헬스체크가 없습니다.</p>
         ) : (
           <div className="space-y-3">
             {checks.map((check) => (
               <div
                 key={check.check_id}
                 className={`flex items-center gap-4 p-4 rounded-lg border ${
-                  check.latest_result?.is_healthy ? 'border-emerald-200 bg-emerald-50/50' : 'border-red-200 bg-red-50/50'
+                  check.latest_result?.is_healthy ? 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/20' : 'border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20'
                 }`}
               >
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                  check.latest_result?.is_healthy ? 'bg-emerald-100 text-emerald-600' : 'bg-red-100 text-red-600'
+                  check.latest_result?.is_healthy ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400' : 'bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400'
                 }`}>
                   <Heart size={16} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                     {check.check_name || check.target}
                   </p>
-                  <p className="text-xs text-gray-500 mt-0.5">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                     {check.check_type.toUpperCase()} &middot; {check.target}
                     {!check.is_enabled && ' (비활성)'}
                   </p>
@@ -888,11 +888,11 @@ function HealthCheckTab({ checks }: { checks: HealthCheck[] }) {
                       <Badge color={check.latest_result.is_healthy ? 'emerald' : 'red'}>
                         {check.latest_result.is_healthy ? '정상' : '실패'}
                       </Badge>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {check.latest_result.response_ms}ms &middot; {formatRelative(check.latest_result.checked_at)}
                       </p>
                       {check.latest_result.error_message && (
-                        <p className="text-xs text-red-500 mt-0.5 max-w-[200px] truncate">
+                        <p className="text-xs text-red-500 dark:text-red-400 mt-0.5 max-w-[200px] truncate">
                           {check.latest_result.error_message}
                         </p>
                       )}
@@ -913,9 +913,9 @@ function HealthCheckTab({ checks }: { checks: HealthCheck[] }) {
 // ── Shared helpers ──
 function InfoBox({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-4">
-      <p className="text-xs text-gray-500 mb-1">{label}</p>
-      <p className="text-lg font-semibold text-gray-900">{value}</p>
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{label}</p>
+      <p className="text-lg font-semibold text-gray-900 dark:text-white">{value}</p>
     </div>
   );
 }

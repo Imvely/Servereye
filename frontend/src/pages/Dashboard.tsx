@@ -34,11 +34,11 @@ function MiniGauge({ label, value, color }: { label: string; value: number | nul
   const pct = value ?? 0;
   return (
     <div className="flex items-center gap-2 text-xs">
-      <span className="w-8 text-gray-500 shrink-0">{label}</span>
-      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+      <span className="w-8 text-gray-500 dark:text-gray-400 shrink-0">{label}</span>
+      <div className="flex-1 h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
         <div className="h-full rounded-full transition-all duration-300" style={{ width: `${Math.min(pct, 100)}%`, backgroundColor: color }} />
       </div>
-      <span className="w-10 text-right text-gray-700 font-medium tabular-nums">
+      <span className="w-10 text-right text-gray-700 dark:text-gray-300 font-medium tabular-nums">
         {value != null ? `${pct.toFixed(0)}%` : '-'}
       </span>
     </div>
@@ -162,7 +162,7 @@ export default function Dashboard() {
       <div className="flex items-center justify-center h-96">
         <div className="flex flex-col items-center gap-3">
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-indigo-600 border-t-transparent" />
-          <span className="text-sm text-gray-500">데이터 로딩 중...</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">데이터 로딩 중...</span>
         </div>
       </div>
     );
@@ -205,7 +205,7 @@ export default function Dashboard() {
         <select
           value={groupFilter}
           onChange={(e) => setGroupFilter(e.target.value)}
-          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="">전체 그룹</option>
           {groups.map((g) => (
@@ -217,7 +217,7 @@ export default function Dashboard() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="">전체 상태</option>
           {Object.entries(STATUS_LABELS).map(([value, label]) => (
@@ -227,27 +227,27 @@ export default function Dashboard() {
 
         {/* Search */}
         <div className="relative flex-1 min-w-[200px] max-w-xs">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
           <input
             type="text"
             placeholder="서버 검색..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-9 w-full pl-9 pr-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="h-9 w-full pl-9 pr-3 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
 
         {/* View toggle */}
-        <div className="ml-auto flex items-center border border-gray-300 rounded-lg overflow-hidden">
+        <div className="ml-auto flex items-center border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
           <button
             onClick={() => setViewMode('card')}
-            className={`p-2 ${viewMode === 'card' ? 'bg-indigo-50 text-indigo-600' : 'text-gray-500 hover:bg-gray-50'}`}
+            className={`p-2 ${viewMode === 'card' ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
           >
             <LayoutGrid size={16} />
           </button>
           <button
             onClick={() => setViewMode('table')}
-            className={`p-2 ${viewMode === 'table' ? 'bg-indigo-50 text-indigo-600' : 'text-gray-500 hover:bg-gray-50'}`}
+            className={`p-2 ${viewMode === 'table' ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
           >
             <List size={16} />
           </button>
@@ -256,7 +256,7 @@ export default function Dashboard() {
 
       {/* ── Server Grid / Table ── */}
       {filteredServers.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-gray-400 dark:text-gray-500">
           <Monitor size={40} className="mx-auto mb-3 opacity-40" />
           <p className="text-sm">표시할 서버가 없습니다.</p>
         </div>
@@ -272,10 +272,10 @@ export default function Dashboard() {
               {/* Header */}
               <div className="flex items-start justify-between mb-3">
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-sm font-semibold text-gray-900 truncate">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white truncate">
                     {s.display_name}
                   </h3>
-                  <p className="text-xs text-gray-500 mt-0.5">{s.ip_address}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{s.ip_address}</p>
                 </div>
                 <StatusBadge status={s.status} />
               </div>
@@ -288,13 +288,13 @@ export default function Dashboard() {
               </div>
 
               {/* Sparkline placeholder */}
-              <div className="h-8 bg-gray-50 rounded-md flex items-center justify-center">
-                <Activity size={14} className="text-gray-300" />
+              <div className="h-8 bg-gray-50 dark:bg-gray-700 rounded-md flex items-center justify-center">
+                <Activity size={14} className="text-gray-300 dark:text-gray-600" />
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-                <span className="text-[11px] text-gray-400 flex items-center gap-1">
+              <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+                <span className="text-[11px] text-gray-400 dark:text-gray-500 flex items-center gap-1">
                   <Clock size={11} />
                   {s.last_collected_at ? formatRelative(s.last_collected_at) : '-'}
                 </span>
@@ -309,35 +309,35 @@ export default function Dashboard() {
           ))}
         </div>
       ) : (
-        <div className="overflow-x-auto bg-white border border-gray-200 rounded-xl">
+        <div className="overflow-x-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100 text-left">
-                <th className="px-4 py-3 font-medium text-gray-500">서버명</th>
-                <th className="px-4 py-3 font-medium text-gray-500">IP</th>
-                <th className="px-4 py-3 font-medium text-gray-500">상태</th>
-                <th className="px-4 py-3 font-medium text-gray-500">CPU</th>
-                <th className="px-4 py-3 font-medium text-gray-500">MEM</th>
-                <th className="px-4 py-3 font-medium text-gray-500">DISK</th>
-                <th className="px-4 py-3 font-medium text-gray-500">마지막 수집</th>
+              <tr className="border-b border-gray-100 dark:border-gray-700 text-left">
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">서버명</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">IP</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">상태</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">CPU</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">MEM</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">DISK</th>
+                <th className="px-4 py-3 font-medium text-gray-500 dark:text-gray-400">마지막 수집</th>
               </tr>
             </thead>
             <tbody>
               {filteredServers.map((s) => (
                 <tr
                   key={s.server_id}
-                  className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors"
+                  className="border-b border-gray-50 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
                   onClick={() => navigate(`/servers/${s.server_id}`)}
                 >
-                  <td className="px-4 py-3 font-medium text-gray-900">{s.display_name}</td>
-                  <td className="px-4 py-3 text-gray-600">{s.ip_address}</td>
+                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">{s.display_name}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{s.ip_address}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={s.status} />
                   </td>
                   <td className="px-4 py-3 tabular-nums">{formatPercent(s.cpu_usage_pct)}</td>
                   <td className="px-4 py-3 tabular-nums">{formatPercent(s.mem_usage_pct)}</td>
                   <td className="px-4 py-3 tabular-nums">{formatPercent(s.disk_max_pct)}</td>
-                  <td className="px-4 py-3 text-gray-500 text-xs">
+                  <td className="px-4 py-3 text-gray-500 dark:text-gray-400 text-xs">
                     {s.last_collected_at ? formatRelative(s.last_collected_at) : '-'}
                   </td>
                 </tr>
@@ -351,13 +351,13 @@ export default function Dashboard() {
       {alerts.length > 0 && (
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
               <Bell size={16} className="text-amber-500" />
               최근 알림
             </h2>
             <button
               onClick={() => navigate('/alerts')}
-              className="text-xs text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-0.5"
+              className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium flex items-center gap-0.5"
             >
               전체 보기 <ChevronRight size={14} />
             </button>
@@ -375,8 +375,8 @@ export default function Dashboard() {
                 >
                   <AlertTriangle size={16} className={severityStyle.text} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-gray-900 truncate">{alert.message}</p>
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <p className="text-sm text-gray-900 dark:text-white truncate">{alert.message}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                       {alert.server_name} &middot; {formatRelative(alert.created_at)}
                       {alert.duration_seconds > 0 && ` &middot; ${formatDuration(alert.duration_seconds)}`}
                     </p>
@@ -409,13 +409,13 @@ function SummaryCard({
   isText?: boolean;
 }) {
   return (
-    <div className={`flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3 ${highlight ? 'ring-1 ring-amber-300' : ''}`}>
-      <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-gray-50">
+    <div className={`flex items-center gap-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 ${highlight ? 'ring-1 ring-amber-300 dark:ring-amber-500' : ''}`}>
+      <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-gray-50 dark:bg-gray-700">
         {icon}
       </div>
       <div className="min-w-0">
-        <p className="text-[11px] text-gray-500 truncate">{label}</p>
-        <p className={`font-semibold truncate ${isText ? 'text-xs' : 'text-lg'} ${highlight ? 'text-amber-600' : 'text-gray-900'}`}>
+        <p className="text-[11px] text-gray-500 dark:text-gray-400 truncate">{label}</p>
+        <p className={`font-semibold truncate ${isText ? 'text-xs' : 'text-lg'} ${highlight ? 'text-amber-600 dark:text-amber-500' : 'text-gray-900 dark:text-white'}`}>
           {value}
         </p>
       </div>

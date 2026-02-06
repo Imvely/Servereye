@@ -89,8 +89,8 @@ export default function Alerts() {
     <div className="space-y-6">
       {/* ── Header ── */}
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Bell size={22} className="text-indigo-600" />
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <Bell size={22} className="text-indigo-600 dark:text-indigo-400" />
           알림
         </h1>
         <Button
@@ -108,7 +108,7 @@ export default function Alerts() {
         <select
           value={severity}
           onChange={(e) => { setSeverity(e.target.value); setPage(1); }}
-          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
         >
           <option value="">전체 심각도</option>
           <option value="critical">위험</option>
@@ -118,7 +118,7 @@ export default function Alerts() {
         <select
           value={acknowledged}
           onChange={(e) => { setAcknowledged(e.target.value); setPage(1); }}
-          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
         >
           <option value="">전체 상태</option>
           <option value="false">미확인</option>
@@ -130,7 +130,7 @@ export default function Alerts() {
           placeholder="서버 ID"
           value={serverId}
           onChange={(e) => { setServerId(e.target.value); setPage(1); }}
-          className="h-9 w-28 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 w-28 px-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:placeholder:text-gray-500"
         />
 
         <DateRangePicker
@@ -172,7 +172,7 @@ export default function Alerts() {
       {/* ── Pagination ── */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
             총 {total}개 중 {(page - 1) * 20 + 1}-{Math.min(page * 20, total)}
           </span>
           <div className="inline-flex items-center gap-1">
@@ -202,7 +202,7 @@ export default function Alerts() {
                   className={`h-8 w-8 text-sm rounded-lg font-medium transition-colors ${
                     page === pageNum
                       ? 'bg-indigo-600 text-white'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
                   }`}
                 >
                   {pageNum}
@@ -244,7 +244,7 @@ function AlertCard({
 
   return (
     <div
-      className={`flex items-start gap-4 px-5 py-4 rounded-xl border-l-4 bg-white border border-gray-200 ${severityStyle.border} transition-colors hover:bg-gray-50/50`}
+      className={`flex items-start gap-4 px-5 py-4 rounded-xl border-l-4 bg-white border border-gray-200 ${severityStyle.border} transition-colors hover:bg-gray-50/50 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700/50`}
     >
       {/* Severity icon */}
       <div className={`mt-0.5 shrink-0 ${severityStyle.text}`}>
@@ -260,12 +260,12 @@ function AlertCard({
           {alert.acknowledged && (
             <Badge color="blue">확인됨</Badge>
           )}
-          <span className="text-xs text-gray-400">{alert.server_name}</span>
+          <span className="text-xs text-gray-400 dark:text-gray-500">{alert.server_name}</span>
         </div>
 
-        <p className="text-sm text-gray-900 mb-1">{alert.message}</p>
+        <p className="text-sm text-gray-900 dark:text-gray-100 mb-1">{alert.message}</p>
 
-        <div className="flex items-center gap-3 text-xs text-gray-500">
+        <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
           {metricLabel && (
             <span>
               {metricLabel}: {alert.metric_value != null ? formatPercent(alert.metric_value) : '-'}
