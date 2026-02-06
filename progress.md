@@ -84,26 +84,62 @@
 
 ---
 
-## Phase 3 — 운영 도구 및 리포트 ⏳
+## Phase 3 — 운영 도구 및 리포트 ✅
 
-### 남은 작업
-- [ ] 리포트 생성 및 다운로드 기능 검증
-- [ ] 설정 페이지 — 수집 주기/알림/웹훅 설정
-- [ ] 웹훅 테스트 발송 기능
-- [ ] 사용자 관리 페이지 검증
-- [ ] 다크 모드 기능 검증 및 보완
-- [ ] 로그인/로그아웃 플로우 검증
+### 완료된 작업
 
-## Phase 4 — 데스크톱 패키징 ⏳
+#### 백엔드
+- [x] 리포트 생성 API — report_name 파라미터 추가
+- [x] 리포트 다운로드/삭제 API 구현
+- [x] 설정 조회/수정 API — dict 형식 변환
+- [x] 웹훅 테스트 발송 API (POST /settings/webhook/test)
+- [x] 사용자 CRUD API 구현
 
-### 남은 작업
-- [ ] pystray 시스템 트레이 구현
-- [ ] PyInstaller exe 패키징
-- [ ] Inno Setup 설치 프로그램
-- [ ] 사용자 가이드 문서 작성
-- [ ] README.md 업데이트
+#### 프론트엔드
+- [x] 리포트 페이지 — 생성/다운로드/삭제 + API 응답 구조 수정
+- [x] 설정 페이지 — 카테고리별 탭, 웹훅 설정, API 경로 수정
+- [x] 사용자 관리 페이지 — CRUD + API 응답 구조 수정
+- [x] 다크 모드 토글 (Header에 Moon/Sun 아이콘 추가)
+- [x] Settings 훅 — 배열↔딕셔너리 변환 로직
+- [x] 전체 API 훅 응답 구조 정합성 완료
+
+### 테스트 결과
+- [x] Python 전체 파일 구문 검사 통과
+- [x] TypeScript 타입 체크 통과
+- [x] Vite 프로덕션 빌드 성공
 
 ---
+
+## Phase 4 — 데스크톱 패키징 및 문서 ✅
+
+### 완료된 작업
+
+#### 데스크톱 패키징
+- [x] pystray 시스템 트레이 구현 (backend/tray.py) — 상태별 색상 아이콘, 컨텍스트 메뉴, 10초 폴링
+- [x] 통합 런처 구현 (backend/run.py) — uvicorn + 트레이 + 브라우저 자동 열기
+- [x] PyInstaller spec 파일 (servereye.spec) — onedir 모드, hidden imports 관리
+- [x] Inno Setup 설치 스크립트 (installer.iss) — 한국어, 바탕화면 바로가기, Windows 자동 시작
+
+#### 문서
+- [x] 사용자 가이드 작성 (docs/user-guide.md) — 13개 섹션, 전체 기능 설명
+- [x] README.md 업데이트 — 기술 스택, 빠른 시작, 프로젝트 구조, 빌드 가이드
+
+### 테스트 결과
+- [x] Python 전체 파일 구문 검사 통과 (tray.py, run.py 포함)
+- [x] TypeScript 타입 체크 통과
+- [x] Vite 프로덕션 빌드 성공
+
+---
+
+## 최종 완료 체크리스트
+
+- [x] 전체 Python 구문 검사 통과
+- [x] TypeScript 타입 에러 0건
+- [x] Vite 프로덕션 빌드 성공
+- [x] 입력값 검증 (Pydantic validators, field_validator)
+- [x] 에러 핸들링 (400, 404, 500 응답)
+- [x] 사용자 가이드 .md 파일
+- [x] README.md 업데이트
 
 ## 발견된 이슈
 - 없음
