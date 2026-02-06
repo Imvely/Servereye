@@ -96,8 +96,8 @@ async def seed_default_admin():
         if count == 0:
             password_hash = bcrypt.hash("admin")
             await conn.execute(
-                text("""INSERT INTO users (username, password_hash, display_name, role)
-                    VALUES (:username, :password_hash, :display_name, :role)"""),
+                text("""INSERT INTO users (username, password_hash, display_name, role, is_active)
+                    VALUES (:username, :password_hash, :display_name, :role, 1)"""),
                 {"username": "admin", "password_hash": password_hash,
                  "display_name": "관리자", "role": "admin"}
             )

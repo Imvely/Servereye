@@ -1,6 +1,6 @@
 """SQLAlchemy ORM 모델"""
 from sqlalchemy import (
-    Column, Integer, Text, Real, ForeignKey, Index, text
+    Column, Integer, Text, Float, ForeignKey, Index, text
 )
 from sqlalchemy.orm import DeclarativeBase, relationship
 
@@ -49,8 +49,8 @@ class Server(Base):
     collect_services = Column(Integer, default=1)
     collect_logs = Column(Integer, default=1)
 
-    created_at = Column(Text, server_default=text("datetime('now','localtime')"))
-    updated_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    created_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
+    updated_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
 
 class MetricsRaw(Base):
@@ -58,19 +58,19 @@ class MetricsRaw(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     server_id = Column(Integer, ForeignKey('servers.server_id'), nullable=False)
-    collected_at = Column(Text, nullable=False, server_default=text("datetime('now','localtime')"))
-    cpu_usage_pct = Column(Real)
-    cpu_load_1m = Column(Real)
-    cpu_load_5m = Column(Real)
-    cpu_load_15m = Column(Real)
+    collected_at = Column(Text, nullable=False, server_default=text("(datetime('now','localtime'))"))
+    cpu_usage_pct = Column(Float)
+    cpu_load_1m = Column(Float)
+    cpu_load_5m = Column(Float)
+    cpu_load_15m = Column(Float)
     mem_total_mb = Column(Integer)
     mem_used_mb = Column(Integer)
-    mem_usage_pct = Column(Real)
+    mem_usage_pct = Column(Float)
     swap_total_mb = Column(Integer)
     swap_used_mb = Column(Integer)
     disk_json = Column(Text)
-    disk_read_mbps = Column(Real)
-    disk_write_mbps = Column(Real)
+    disk_read_mbps = Column(Float)
+    disk_write_mbps = Column(Float)
     net_json = Column(Text)
     net_connections = Column(Integer)
     process_count = Column(Integer)
@@ -87,15 +87,15 @@ class Metrics5Min(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     server_id = Column(Integer, nullable=False)
     bucket_time = Column(Text, nullable=False)
-    cpu_avg = Column(Real)
-    cpu_max = Column(Real)
-    cpu_min = Column(Real)
-    mem_avg_pct = Column(Real)
-    mem_max_pct = Column(Real)
-    disk_read_avg = Column(Real)
-    disk_write_avg = Column(Real)
-    net_in_avg = Column(Real)
-    net_out_avg = Column(Real)
+    cpu_avg = Column(Float)
+    cpu_max = Column(Float)
+    cpu_min = Column(Float)
+    mem_avg_pct = Column(Float)
+    mem_max_pct = Column(Float)
+    disk_read_avg = Column(Float)
+    disk_write_avg = Column(Float)
+    net_in_avg = Column(Float)
+    net_out_avg = Column(Float)
     sample_count = Column(Integer)
 
     __table_args__ = (
@@ -109,15 +109,15 @@ class MetricsHourly(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     server_id = Column(Integer, nullable=False)
     bucket_time = Column(Text, nullable=False)
-    cpu_avg = Column(Real)
-    cpu_max = Column(Real)
-    cpu_p95 = Column(Real)
-    mem_avg_pct = Column(Real)
-    mem_max_pct = Column(Real)
-    disk_read_avg = Column(Real)
-    disk_write_avg = Column(Real)
-    net_in_avg = Column(Real)
-    net_out_avg = Column(Real)
+    cpu_avg = Column(Float)
+    cpu_max = Column(Float)
+    cpu_p95 = Column(Float)
+    mem_avg_pct = Column(Float)
+    mem_max_pct = Column(Float)
+    disk_read_avg = Column(Float)
+    disk_write_avg = Column(Float)
+    net_in_avg = Column(Float)
+    net_out_avg = Column(Float)
     alert_count = Column(Integer, default=0)
     downtime_sec = Column(Integer, default=0)
     sample_count = Column(Integer)
@@ -137,8 +137,8 @@ class ServiceStatus(Base):
     status = Column(Text)
     start_type = Column(Text)
     pid = Column(Integer)
-    mem_mb = Column(Real)
-    updated_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    mem_mb = Column(Float)
+    updated_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
     __table_args__ = (
         Index('idx_svc', 'server_id'),
@@ -153,13 +153,13 @@ class ProcessSnapshot(Base):
     pid = Column(Integer)
     name = Column(Text)
     username = Column(Text)
-    cpu_pct = Column(Real)
-    mem_mb = Column(Real)
-    mem_pct = Column(Real)
+    cpu_pct = Column(Float)
+    mem_mb = Column(Float)
+    mem_pct = Column(Float)
     thread_count = Column(Integer)
     status = Column(Text)
     command_line = Column(Text)
-    updated_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    updated_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
     __table_args__ = (
         Index('idx_proc', 'server_id'),
@@ -176,7 +176,7 @@ class ServerLog(Base):
     message = Column(Text)
     event_id = Column(Integer)
     occurred_at = Column(Text, nullable=False)
-    collected_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    collected_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
     __table_args__ = (
         Index('idx_log_lookup', 'server_id', occurred_at.desc()),
@@ -194,14 +194,14 @@ class AlertRule(Base):
     group_name = Column(Text)
     metric_name = Column(Text, nullable=False)
     condition_op = Column(Text, default='>=')
-    warning_value = Column(Real)
-    critical_value = Column(Real)
+    warning_value = Column(Float)
+    critical_value = Column(Float)
     duration_sec = Column(Integer, default=30)
     cooldown_sec = Column(Integer, default=300)
     is_enabled = Column(Integer, default=1)
     sort_order = Column(Integer, default=0)
-    created_at = Column(Text, server_default=text("datetime('now','localtime')"))
-    updated_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    created_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
+    updated_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
 
 class AlertHistory(Base):
@@ -212,15 +212,15 @@ class AlertHistory(Base):
     rule_id = Column(Integer, ForeignKey('alert_rules.rule_id'))
     severity = Column(Text, nullable=False)
     metric_name = Column(Text)
-    metric_value = Column(Real)
-    threshold_value = Column(Real)
+    metric_value = Column(Float)
+    threshold_value = Column(Float)
     message = Column(Text, nullable=False)
     acknowledged = Column(Integer, default=0)
     acknowledged_by = Column(Text)
     acknowledged_at = Column(Text)
     resolved_at = Column(Text)
     webhook_sent = Column(Integer, default=0)
-    created_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    created_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
     __table_args__ = (
         Index('idx_alert_active', 'severity'),
@@ -240,7 +240,7 @@ class HealthCheck(Base):
     timeout_sec = Column(Integer, default=10)
     expected_status = Column(Integer)
     is_enabled = Column(Integer, default=1)
-    created_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    created_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
 
 class HealthCheckResult(Base):
@@ -253,7 +253,7 @@ class HealthCheckResult(Base):
     response_ms = Column(Integer)
     status_code = Column(Integer)
     error_message = Column(Text)
-    checked_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    checked_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
     __table_args__ = (
         Index('idx_hcr', 'check_id', checked_at.desc()),
@@ -271,7 +271,7 @@ class User(Base):
     is_active = Column(Integer, default=1)
     preferences = Column(Text, default='{}')
     last_login = Column(Text)
-    created_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    created_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
 
 class AppSetting(Base):
@@ -283,7 +283,7 @@ class AppSetting(Base):
     category = Column(Text)
     value_type = Column(Text, default='string')
     description = Column(Text)
-    updated_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    updated_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
 
 class ReportHistory(Base):
@@ -298,7 +298,7 @@ class ReportHistory(Base):
     file_path = Column(Text)
     file_size_kb = Column(Integer)
     created_by = Column(Text)
-    created_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    created_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
 
 class AuditLog(Base):
@@ -310,7 +310,7 @@ class AuditLog(Base):
     target_type = Column(Text)
     target_id = Column(Integer)
     detail = Column(Text)
-    created_at = Column(Text, server_default=text("datetime('now','localtime')"))
+    created_at = Column(Text, server_default=text("(datetime('now','localtime'))"))
 
     __table_args__ = (
         Index('idx_audit', created_at.desc()),

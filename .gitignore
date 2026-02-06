@@ -24,10 +24,19 @@ frontend/dist/
 *.log
 reports/
 
+# Virtual environment
+venv/
+
+# Claude Code
+.claude/
+
 # Environment
 .env
 .env.local
 config.ini
+
+# Windows temp
+nul
 
 # Build artifacts
 *.exe
