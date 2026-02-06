@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  /* 포인트 컬러 (Indigo) */
+  --color-primary-50: #EEF2FF;
+  --color-primary-100: #E0E7FF;
+  --color-primary-200: #C7D2FE;
+  --color-primary-300: #A5B4FC;
+  --color-primary-400: #818CF8;
+  --color-primary-500: #6366F1;
+  --color-primary-600: #4F46E5;
+  --color-primary-700: #4338CA;
+  --color-primary-800: #3730A3;
+  --color-primary-900: #312E81;
+}
+
+:root {
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-neutral: #6B7280;
+  --color-maintenance: #8B5CF6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Apple SD Gothic Neo',
+    'Pretendard Variable',
+    'Malgun Gothic',
+    'Segoe UI',
+    system-ui,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-mono {
+  font-family:
+    'JetBrains Mono',
+    'Cascadia Code',
+    'D2Coding',
+    'Consolas',
+    monospace;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4B5563;
+}
+
+/* AG Grid custom theme */
+.ag-theme-custom {
+  --ag-header-background-color: #F9FAFB;
+  --ag-header-foreground-color: #6B7280;
+  --ag-row-hover-color: rgba(249, 250, 251, 0.5);
+  --ag-border-color: #E5E7EB;
+  --ag-font-size: 13px;
+  --ag-font-family: inherit;
+}
+
+.dark .ag-theme-custom {
+  --ag-header-background-color: #1F2937;
+  --ag-header-foreground-color: #9CA3AF;
+  --ag-row-hover-color: rgba(31, 41, 55, 0.5);
+  --ag-border-color: #374151;
+  --ag-background-color: #111827;
+  --ag-foreground-color: #F9FAFB;
+}
+
+/* Pulse animation for critical alerts */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
